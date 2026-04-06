@@ -1,5 +1,5 @@
-import { use, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { use, useEffect, useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
 import { FaEye } from "react-icons/fa";
 import { IoEyeOff } from "react-icons/io5";
@@ -10,6 +10,22 @@ const SignUp = () => {
   const { createUser, setUser, updateUser, googleSignIn } = use(AuthContext);
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const [upazilas, setUpazilas] = useState([]);
+  const [districts, setDistricts] = useState([]);
+  const [district, setDistrict] = useState(""); 
+  const [upazila, setUpazila] = useState("");
+  useEffect(() => {
+    axios.get("./upazilas.json").then((res) => {
+      setUpazilas(res.data.upazilas);
+    });
+
+    axios.get("./district.json").then((res) => {
+      setDistricts(res.data.districts);
+    });
+  }, []);
+
+  
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -18,7 +34,10 @@ const SignUp = () => {
     const name = form.name.value;
     const photo = form.photo.value;
     const file = form.photo.files[0];
-    // console.log(file);
+    const blood = form.blood.value;
+    const district = form.district.value;
+    const upazila = form.upazila.value;
+    console.log(blood);
 
     const email = form.email.value;
     const password = form.password.value;
@@ -45,7 +64,11 @@ const SignUp = () => {
       email,
       password,
       photoURL: miniUrl,
+      blood,
+      district,
+      upazila,
     };
+    console.log(formData);
 
     if (res.data.success == true) {
       createUser(email, password)
@@ -81,7 +104,7 @@ const SignUp = () => {
         const user = result.user;
         // console.log(user);
         alert("Google signUp successfully");
-        navigate(`${location.state ? location.state : "/"}`);
+        navigate(location.state || "/");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -120,7 +143,43 @@ const SignUp = () => {
                 required
               />
             </div>
-
+            {/* Blood Group */}
+            <select
+              name="blood"
+              defaultValue="Choose Blood Group"
+              className="select"
+            >
+              <option disabled={true}>Choose Blood Group</option>
+              <option value="A+">A+</option>
+              <option value="A-">A−</option>
+              <option value="B+">B+</option>
+              <option value="B-">B−</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB−</option>
+              <option value="O+">O+</option>
+              <option value="O-">O−</option>
+            </select>
+            {/* district,uplaza */}
+            <select onChange={(e)=> setDistrict(e.target.value)} name="district" defaultValue="" className="select">
+              <option disabled value="">
+                Select Your District 
+              </option>
+              {districts.map((d) => (
+                <option key={d.id} value={d.name}>
+                  {d.name}
+                </option>
+              ))}
+            </select>
+            <select onChange={(e)=> setUpazila(e.target.value)} name="upazila" defaultValue="" className="select">
+              <option disabled value="">
+                Select Your Upazila
+              </option>
+              {upazilas.map((u) => (
+                <option key={u.id} value={u.name}>
+                  {u.name}
+                </option>
+              ))}
+            </select>
             {/* email */}
             <div>
               <label className="label">Email</label>
