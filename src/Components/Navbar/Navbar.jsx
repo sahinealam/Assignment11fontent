@@ -81,7 +81,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <Link to="/dashboard/main" className="mr-2">
+        <Link to="/dashboard" className="mr-2">
           Dashboard
         </Link>
         {user ? (

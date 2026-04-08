@@ -4,7 +4,7 @@ import Aside from '../Aside/Aside';
 
 const DashboardLayout = () => {
     return (
-        <div>
+        <div className='flex'>
             <Aside></Aside>
             <Outlet></Outlet>
         </div>

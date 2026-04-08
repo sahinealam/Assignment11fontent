@@ -4,8 +4,9 @@ import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login";
 import SignUp from "../Pages/SignUp";
 import DashboardLayout from "../DashboardLayout/DashboardLayout";
-import MainDashboard from "../Pages/Dashboard/MainDashboard";
 import ErrorPage from "../Pages/ErrorPage";
+import AddRequest from "../Pages/Dashboard/AddRequest/AddRequest";
+import MainDashboard from "../Pages/MainDashboard/MainDashboard";
 
 const router = createBrowserRouter([
   {
@@ -32,17 +33,17 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/dashboard",
+    path: "dashboard",
     element: <DashboardLayout />,
     errorElement: <ErrorPage />,
     children: [
       {
-        index: true,
-        element: <MainDashboard />,
+        path: "/dashboard",
+        element: <MainDashboard/>
       },
       {
-        path: "main",
-        element: <MainDashboard />,
+        path:"add-request",
+        element:<AddRequest/>
       },
       {
         path: "*",

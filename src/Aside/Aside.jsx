@@ -12,14 +12,6 @@ import {
 const Aside = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  const menuItems = [
-    { path: "/dashboard", icon: <FaHome />, label: "Dashboard" },
-    { path: "/dashboard/users", icon: <FaUsers />, label: "Users" },
-    { path: "/dashboard/products", icon: <FaBox />, label: "Products" },
-    { path: "/dashboard/analytics", icon: <FaChartBar />, label: "Analytics" },
-    { path: "/dashboard/settings", icon: <FaCog />, label: "Settings" },
-  ];
-
   const navItemClass = ({ isActive }) =>
     `flex items-center gap-3 px-4 py-2 rounded-lg transition ${
       isActive ? "bg-green-600" : "hover:bg-gray-700"
@@ -46,18 +38,36 @@ const Aside = () => {
 
       {/* Menu */}
       <nav className="flex-1 p-4 space-y-2">
-        {menuItems.map((item) => (
-          <NavLink key={item.path} to={item.path} className={navItemClass}>
-            {item.icon}
-            {!isCollapsed && item.label}
-          </NavLink>
-        ))}
+        <NavLink to="/dashboard" className={navItemClass}>
+          <FaHome />
+          {!isCollapsed && <span>Dashboard</span>}
+        </NavLink>
+
+        <NavLink to="/dashboard/users" className={navItemClass}>
+          <FaUsers />
+          {!isCollapsed && <span>Users</span>}
+        </NavLink>
+
+        <NavLink to="/dashboard/add-request" className={navItemClass}>
+          <FaBox />
+          {!isCollapsed && <span>Add Request</span>}
+        </NavLink>
+
+        <NavLink to="/dashboard/analytics" className={navItemClass}>
+          <FaChartBar />
+          {!isCollapsed && <span>Analytics</span>}
+        </NavLink>
+
+        <NavLink to="/dashboard/settings" className={navItemClass}>
+          <FaCog />
+          {!isCollapsed && <span>Settings</span>}
+        </NavLink>
       </nav>
 
       {/* Footer */}
       {!isCollapsed && (
         <div className="p-4 border-t border-gray-700 text-sm text-gray-400">
-          Logaut
+          Logout
         </div>
       )}
     </aside>

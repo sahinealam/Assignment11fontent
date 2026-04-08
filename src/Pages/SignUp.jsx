@@ -68,7 +68,7 @@ const SignUp = () => {
       district,
       upazila,
     };
-    console.log(formData);
+    // console.log(formData);
 
     if (res.data.success == true) {
       createUser(email, password)
