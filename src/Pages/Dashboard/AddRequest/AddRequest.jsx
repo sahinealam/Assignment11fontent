@@ -1,9 +1,11 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, use } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import axios from "axios";
+import useAxioxs from "../../../hooks/useAxios";
 
 const AddRequest = () => {
   const { user } = useContext(AuthContext);
+  const axiosInstance = useAxioxs();
 
   const [upazilas, setUpazilas] = useState([]);
   const [districts, setDistricts] = useState([]);
@@ -22,9 +24,11 @@ const AddRequest = () => {
     donationDate: "",
     donationTime: "",
     message: "",
-    donation_status:"pending",
+    donation_status: "pending",
   });
+
   console.log(formData);
+
   // Fetch JSON data
   useEffect(() => {
     axios
@@ -67,9 +71,15 @@ const AddRequest = () => {
       message: form.message.value,
     };
 
-    console.log("Blood Request Submitted:", requestPayload);
+    // console.log("Blood Request Submitted:", requestPayload);
     alert("Blood request submitted successfully!");
     // Here you can send requestPayload to your backend API
+    axiosInstance
+      .post("/request", formData)
+      .then((res) => {
+        alert(res.data.insertedId);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
