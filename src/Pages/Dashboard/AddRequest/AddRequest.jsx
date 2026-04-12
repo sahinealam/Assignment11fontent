@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext, use } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import axios from "axios";
-import useAxioxs from "../../../hooks/useAxios";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const AddRequest = () => {
   const { user } = useContext(AuthContext);
-  const axiosInstance = useAxioxs();
+  
+  const axiosSecure = useAxiosSecure();
 
   const [upazilas, setUpazilas] = useState([]);
   const [districts, setDistricts] = useState([]);
@@ -71,10 +72,11 @@ const AddRequest = () => {
       message: form.message.value,
     };
 
-    // console.log("Blood Request Submitted:", requestPayload);
+    console.log("Blood Request Submitted:", requestPayload);
     alert("Blood request submitted successfully!");
     // Here you can send requestPayload to your backend API
-    axiosInstance
+    
+    axiosSecure
       .post("/request", formData)
       .then((res) => {
         alert(res.data.insertedId);

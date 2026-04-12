@@ -7,6 +7,8 @@ import DashboardLayout from "../DashboardLayout/DashboardLayout";
 import ErrorPage from "../Pages/ErrorPage";
 import AddRequest from "../Pages/Dashboard/AddRequest/AddRequest";
 import MainDashboard from "../Pages/MainDashboard/MainDashboard";
+import AllUsers from "../DashboardLayout/AllUsers/AllUsers";
+import PrivetRout from "./PrivetRout";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +36,7 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <DashboardLayout />,
+    element: <PrivetRout><DashboardLayout /></PrivetRout>,
     errorElement: <ErrorPage />,
     children: [
       {
@@ -44,6 +46,10 @@ const router = createBrowserRouter([
       {
         path:"add-request",
         element:<AddRequest/>
+      },
+        {
+        path:"all-users",
+        element:<AllUsers/>
       },
       {
         path: "*",
