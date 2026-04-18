@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import { useState } from "react";
 
 const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -17,6 +16,23 @@ const AllUsers = () => {
       });
   }, [axiosSecure]);
   console.log(users);
+  const handleStatusChange = async (email, status) => {
+    if (!email) return;
+
+    try {
+      const res = await axiosSecure.patch(
+        `/update/user/status?email=${encodeURIComponent(email)}&status=${status}`,
+      );
+      console.log(res.data);
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user.email === email ? { ...user, status } : user,
+        ),
+      );
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
   return (
     <div>
       <div className="overflow-x-auto">
@@ -38,7 +54,7 @@ const AllUsers = () => {
           <tbody>
             {/* row 1 */}
             {users?.map((user) => (
-              <tr>
+              <tr key={user._id}>
                 <th>
                   <label>
                     <input type="checkbox" className="checkbox" />
@@ -61,10 +77,24 @@ const AllUsers = () => {
                   </div>
                 </td>
                 <td>{user?.role}</td>
-                
+
                 <td>{user?.status}</td>
                 <th>
-                  {/* <button className="btn btn-ghost btn-xs">details</button> */}
+                  {user?.status === "active" ? (
+                    <button
+                      onClick={() => handleStatusChange(user?.email, "blocked")}
+                      className="btn btn-ghost btn-xs"
+                    >
+                      Block
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleStatusChange(user?.email, "active")}
+                      className="btn btn-ghost btn-xs"
+                    >
+                      Active
+                    </button>
+                  )}
                 </th>
               </tr>
             ))}

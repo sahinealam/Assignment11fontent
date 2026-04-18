@@ -12,14 +12,13 @@ import { AuthContext } from "../Provider/AuthProvider";
 import { signOut } from "firebase/auth/web-extension";
 import { getAuth } from "firebase/auth";
 
-
 const Aside = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const{role}=useContext(AuthContext)
-  console.log(role)
-  const handeLogOut=()=>{
-signOut(getAuth())
-  }
+  const { role } = useContext(AuthContext);
+  console.log(role);
+  const handeLogOut = () => {
+    signOut(getAuth());
+  };
 
   const navItemClass = ({ isActive }) =>
     `flex items-center gap-3 px-4 py-2 rounded-lg transition ${
@@ -51,32 +50,27 @@ signOut(getAuth())
           <FaHome />
           {!isCollapsed && <span>Dashboard</span>}
         </NavLink>
-      {
-        role=='donor ' && (
+        {role == "donor " && (
           <NavLink to="/dashboard/add-request" className={navItemClass}>
             <FaBox />
             {!isCollapsed && <span>Add Request</span>}
           </NavLink>
-        )
-
-      }
-        {
-        role=='admin' && (
+        )}
+        {role == "admin" && (
           <NavLink to="/dashboard/all-users" className={navItemClass}>
             <FaUsers />
             {!isCollapsed && <span>All Users</span>}
           </NavLink>
-        )
-        }
-        <NavLink to="/dashboard/analytics" className={navItemClass}>
+        )}
+        <NavLink to="/dashboard/my-request" className={navItemClass}>
           <FaChartBar />
-          {!isCollapsed && <span>Analytics</span>}
+          {!isCollapsed && <span>My-Request</span>}
         </NavLink>
 
-        <NavLink to="/dashboard/settings" className={navItemClass}>
+        {/* <NavLink to="/dashboard/settings" className={navItemClass}>
           <FaCog />
           {!isCollapsed && <span>Settings</span>}
-        </NavLink>
+        </NavLink> */}
       </nav>
 
       {/* Footer */}

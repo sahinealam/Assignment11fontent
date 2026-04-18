@@ -7,8 +7,9 @@ import DashboardLayout from "../DashboardLayout/DashboardLayout";
 import ErrorPage from "../Pages/ErrorPage";
 import AddRequest from "../Pages/Dashboard/AddRequest/AddRequest";
 import MainDashboard from "../Pages/MainDashboard/MainDashboard";
-import AllUsers from "../DashboardLayout/AllUsers/AllUsers";
+import AllUsers from "../Pages/AllUsers/AllUsers";
 import PrivetRout from "./PrivetRout";
+import MyRequest from "../Pages/MyRequest/MyRequest";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
         {
         path:"all-users",
         element:<AllUsers/>
+      },
+       {
+        path:"my-request",
+        element:<MyRequest></MyRequest>
       },
       {
         path: "*",
