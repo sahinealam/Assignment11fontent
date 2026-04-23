@@ -7,6 +7,7 @@ import {
   FaChartBar,
   FaCog,
   FaBars,
+  FaUserCircle,
 } from "react-icons/fa";
 import { AuthContext } from "../Provider/AuthProvider";
 import { signOut } from "firebase/auth/web-extension";
@@ -50,6 +51,10 @@ const Aside = () => {
           <FaHome />
           {!isCollapsed && <span>Dashboard</span>}
         </NavLink>
+        <NavLink to="/dashboard/profile" className={navItemClass}>
+          <FaUserCircle />
+          {!isCollapsed && <span>Profile</span>}
+        </NavLink>
         {role == "donor " && (
           <NavLink to="/dashboard/add-request" className={navItemClass}>
             <FaBox />
@@ -66,11 +71,6 @@ const Aside = () => {
           <FaChartBar />
           {!isCollapsed && <span>My-Request</span>}
         </NavLink>
-
-        {/* <NavLink to="/dashboard/settings" className={navItemClass}>
-          <FaCog />
-          {!isCollapsed && <span>Settings</span>}
-        </NavLink> */}
       </nav>
 
       {/* Footer */}
