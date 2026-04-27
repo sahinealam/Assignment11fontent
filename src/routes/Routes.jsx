@@ -11,6 +11,9 @@ import AllUsers from "../Pages/AllUsers/AllUsers";
 import PrivetRout from "./PrivetRout";
 import MyRequest from "../Pages/MyRequest/MyRequest";
 import Profile from "../Pages/Profile/Profile";
+import Donate from "../Pages/Donate/Donate";
+import PamentSuccess from "../Pages/PamentSuccess/PamentSuccess";
+import SearchRequest from "../Pages/SearcRequest/SearchRequest";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +32,18 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp />,
+      },
+      {
+        path: "/donate",
+        element:<PrivetRout><Donate /></PrivetRout>
+      },
+      {
+        path: "/pament-success",
+        element: <PamentSuccess />,
+      },
+       {
+        path: "/search",
+        element: <SearchRequest></SearchRequest>
       },
       {
         path: "*",
